@@ -3,26 +3,43 @@ class Patient {
     private int patientId;
     private TestResult viralXTestResult;
     private TestResult genomicTestResult;
-    private String[] symptoms;
+    private Symptom[] symptoms;
+    private int symptomCount;
     private String status;
     private HighRiskContact[] highRiskContacts;
     private int highRiskContactCount;
     private boolean deceased;
+    private Contact[] contacts;
+    //private boolean highRiskCon;
+
+
+    public void setHighRisk(){
+        if(this.getStatus().equals("Infected")){
+            for(Contact c: contacts){
+                c.setHighRisk(true);
+            }
+        }
+    }
+
+
 
     public Patient(int patientId) {
         this.patientId = patientId;
-        this.viralXTestResult = null;
-        this.genomicTestResult = null;
-        this.symptoms = new String[10]; // Arbitrary size of 10
+        this.viralXTestResult = new TestResult("Untested");
+        this.genomicTestResult = new TestResult("Untested");
+        this.symptoms = new Symptom[10]; // Arbitrary size of 10
         this.status = "Under Observation";
         this.highRiskContacts = new HighRiskContact[10]; // Arbitrary size of 10
         this.highRiskContactCount = 0;
         this.deceased = false;
+        this.symptomCount = 0;
+        //this.highRiskCon = false;
+
         
     }
 
-    public void addSymptom(String symptom) {
-        
+    public void addSymptom(Symptom symptom) {
+        this.symptoms[symptomCount++] = symptom;
     }
 
     public void addHighRiskContact(HighRiskContact contact) {
@@ -52,17 +69,26 @@ class Patient {
         // }
         // return false;
 
+        // test logic
+        genomicTestResult.conductTest(this.symptoms, 'G');
+        viralXTestResult.conductTest(this.symptoms, 'V');
+        //stores the test results..... 
+
         if(viralXTestResult != null && viralXTestResult.getResult().equals("Positive")){
             this.updateStatus("Infected");
+            
             //admission to hospital
             
         }
-        else if(genomicTestResult != null && genomicTestResult.getResult().equals("Positive")){
+        else if(genomicTestResult != null && viralXTestResult.getResult().equals("Negative") && genomicTestResult.getResult().equals("Positive")){
             //conduct viralxTest
+            this.updateStatus("Infected");
+            
         }
-        else if(viralXTestResult != null && viralXTestResult.getResult().equals("Positive") 
+        else if(viralXTestResult != null && viralXTestResult.getResult().equals("Negative") 
                 && genomicTestResult != null && genomicTestResult.getResult().equals("Negative")){
             this.updateStatus("Free");
+           
         }
 
     }
@@ -70,23 +96,76 @@ class Patient {
     public String getStatus() {
         return status;
     }
-
+    //*************************************************
     public static class TestResult {
         //private String testType;
         private String result;
 
-        public TestResult( String result) {
+        public TestResult(String result) {
             //this.testType = testType;
             this.result = result;
         }
 
         // Getters and setters for the attributes
+        
+        public void conductTest(Symptom[] symptoms, char testType)
+        {
+            System.out.println("ANDAR AA GYA");
+            int totalSeverity = 0;
+            boolean cold = false, cough = false, headache = false, chestpain = false;
+            for(Symptom symptom : symptoms)
+            {
+                if(symptom == null)
+                {
+                    continue;
+                }
+                if(symptom != null && symptom.name.equals("cold"))
+                {
+                    cold = true;
+                }
+                else if(symptom != null && symptom.name.equals("cough"))
+                {
+                    cough = true;
+                }
+                else if(symptom != null && symptom.name.equals("headache"))
+                {
+                    headache = true;
+                }
+                else if(symptom != null && symptom.name.equals("chestpain"))
+                {
+                    chestpain = true;
+                }
+                totalSeverity += symptom.severity;
+            }
+            if(testType == 'G')
+            {
+                if(totalSeverity >= 5)
+                {
+                    this.result = "Positive";
+                }
+                else
+                {
+                    this.result = "Negative";
+                }
+            }
+            else
+            {
+                if(totalSeverity >= 10)
+                {
+                    this.result = "Positive";
+                }
+                else
+                {
+                    this.result = "Negative";
+                }
+            }
+        }
 
         public String getResult(){
             return this.result;
         }
     }
-
+    /****************************************** */
     // Nested class for a high-risk contact
     public static class HighRiskContact {
         private int contactId;
