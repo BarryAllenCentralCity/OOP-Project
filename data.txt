@@ -1,16 +1,16 @@
 Name: INDIA
-Total patients: 3
-Total infected: 3
-Total recovered: 0
-Total deceased: 3
-Fatality rate: 1.0
+Total patients: 10
+Total infected: 10
+Total recovered: 5
+Total deceased: 5
+Fatality rate: 0.5
 
 State: Maharashtra
-Total patients: 3
-Total infected: 3
-Total recovered: 0
+Total patients: 4
+Total infected: 4
+Total recovered: 1
 Total deceased: 3
-Fatality rate: 1.0
+Fatality rate: 0.75
 
 Name: Apollo Hospital
 Total patients: 2
@@ -20,46 +20,46 @@ Total deceased: 2
 Fatality rate: 1.0
 
 Name: EK AUR Hospital
-Total patients: 1
-Total infected: 1
-Total recovered: 0
+Total patients: 2
+Total infected: 2
+Total recovered: 1
 Total deceased: 1
-Fatality rate: 1.0
+Fatality rate: 0.5
 
 State: Karnataka
-Total patients: 0
-Total infected: 0
-Total recovered: 0
-Total deceased: 0
-Fatality rate: 0.0
+Total patients: 4
+Total infected: 4
+Total recovered: 3
+Total deceased: 1
+Fatality rate: 0.25
 
 Name: Fortis Hospital
-Total patients: 0
-Total infected: 0
-Total recovered: 0
-Total deceased: 0
-Fatality rate: 0.0
+Total patients: 2
+Total infected: 2
+Total recovered: 1
+Total deceased: 1
+Fatality rate: 0.5
 
 Name: BHAI KA Hospital
-Total patients: 0
-Total infected: 0
-Total recovered: 0
+Total patients: 2
+Total infected: 2
+Total recovered: 2
 Total deceased: 0
 Fatality rate: 0.0
 
 State: Gujrat
-Total patients: 0
-Total infected: 0
-Total recovered: 0
-Total deceased: 0
-Fatality rate: 0.0
+Total patients: 2
+Total infected: 2
+Total recovered: 1
+Total deceased: 1
+Fatality rate: 0.5
 
 Name: Wockart Hospital
-Total patients: 0
-Total infected: 0
-Total recovered: 0
-Total deceased: 0
-Fatality rate: 0.0
+Total patients: 2
+Total infected: 2
+Total recovered: 1
+Total deceased: 1
+Fatality rate: 0.5
 
 Name: TOTOT Hospital
 Total patients: 0
