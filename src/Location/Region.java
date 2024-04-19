@@ -1,8 +1,12 @@
+package Location;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import Subject.Patient;
+import utility.Display;
+
 abstract class Region implements Display {
-    private String name;
+    protected String name;
     private Region[] subRegions;
     private int numSubRegions;
     private Patient[] patients;
@@ -12,7 +16,7 @@ abstract class Region implements Display {
         this.name = name;
         this.subRegions = new Region[10];
         this.numSubRegions = 0;
-        this.patients = new Patient[100];
+        this.patients = new Patient[2];
         this.numPatients = 0;
     }
 
@@ -23,19 +27,19 @@ abstract class Region implements Display {
         }
     }
 
-    public void addPatient(Patient patient) {
+    public boolean addPatient(Patient patient) {
         if (this.numPatients < this.patients.length) {
             this.patients[this.numPatients] = patient;
             this.numPatients++;
             if (patient.getStatus().equals("Infected")) {
                 admitToHospital(patient);
+                return true;
             }
         }
+        return false;
     }
 
-    protected void admitToHospital(Patient patient) {
-        // Do nothing by default
-    }
+    protected void admitToHospital(Patient patient){}
 
     public String getName() {
         return this.name;

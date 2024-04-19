@@ -1,3 +1,4 @@
+package Subject;
 public class Contact extends Person {
     private Patient patient;
     private boolean highRisk;

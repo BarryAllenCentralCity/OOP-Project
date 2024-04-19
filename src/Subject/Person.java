@@ -1,3 +1,4 @@
+package Subject;
 
 abstract class Person {
     private int id;
@@ -23,7 +24,4 @@ abstract class Person {
         return this.age;
         
     }
-
-    
-    
 }

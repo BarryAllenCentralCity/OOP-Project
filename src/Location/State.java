@@ -1,24 +1,20 @@
+package Location;
 import java.io.FileWriter;
 
-class Country extends Region {
-    public Country(String name) {
+public class State extends Region {
+    public State(String name) {
         super(name);
     }
 
     @Override
     public void displayData() {
-        System.out.println("Country: " + getName());
+        System.out.println("State: " + getName());
         System.out.println("Total patients: " + getTotalPatients());
         System.out.println("Total infected: " + getTotalInfected());
         System.out.println("Total recovered: " + getTotalRecovered());
         System.out.println("Total deceased: " + getTotalDeceased());
         System.out.println("Fatality rate: " + calculateFatalityRate());
 
-       //disaplay for each state
-        System.out.println("States:");
-        for (Region region : getSubRegions()) {
-            region.displayData();
-        }
 
         // extract to csv
         try {
@@ -27,14 +23,12 @@ class Country extends Region {
             csvWriter.append(getName() + "," + getTotalPatients() + "," + getTotalInfected() + "," + getTotalRecovered() + "," + getTotalDeceased() + "," + calculateFatalityRate() + "\n");
             csvWriter.flush();
             csvWriter.close();
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        } catch (Exception e) {}
 
         // extract to txt
         try {
             FileWriter txtWriter = new FileWriter("data.txt", true);
-            txtWriter.append("Country: " + getName() + "\n");
+            txtWriter.append("State: " + getName() + "\n");
             txtWriter.append("Total patients: " + getTotalPatients() + "\n");
             txtWriter.append("Total infected: " + getTotalInfected() + "\n");
             txtWriter.append("Total recovered: " + getTotalRecovered() + "\n");
@@ -44,5 +38,13 @@ class Country extends Region {
             txtWriter.flush();
             txtWriter.close();
         } catch (Exception e) {}
+
+        // Display data for each hospital in the state
+        System.out.println("Hospitals:");
+        for (Region region : getSubRegions()) {
+            region.displayData();
+        }
     }
+
+    
 }

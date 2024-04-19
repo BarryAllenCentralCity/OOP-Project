@@ -1,50 +1,70 @@
+import Location.Country;
+import Location.Hospital;
+import Location.State;
+import Subject.Patient;
+import utility.all_data;
+
 public class Main {
     public static void main(String[] args) {
-        Country country = new Country("India");
+        all_data data = new all_data();
+        Country country = data.getCountry();
+        data.readInputFromFile("src/inputFiles/input.txt");
+        data.readInputFromFile("src/inputFiles/hospital.txt", country);
+        Patient[] patients = data.getPatients();
+        Hospital[] hospitals = data.getHospitals();
+        State[] states = data.getStates();
 
-        State state1 = new State("Maharashtra");
-        State state2 = new State("Karnataka");
-
-        country.addSubRegion(state1);
-
-        country.addSubRegion(state2);
-
-        Hospital hospital1 = new Hospital("Apollo Hospital");
-
-
-        Hospital hospital2 = new Hospital("Fortis Hospital");
-
-        state1.addSubRegion(hospital1);
-        state2.addSubRegion(hospital2);
-
-        Patient patient1 = new Patient(1 , "Adit" , 23);
-        patient1.addSymptom(new Symptom("cough", 3));
-        patient1.addSymptom(new Symptom("fever", 2));
-        //patient1.updateDeceased(true);
-        patient1.isConfirmedCase();
-        
-
-        Patient patient2 = new Patient(2 , "Nihak" , 69);
-        patient2.addSymptom(new Symptom("sore throat", 8));
-        patient2.isConfirmedCase();
-
-        Patient patient3 = new Patient(3 , "Hars" , 64);
-        patient3.addSymptom(new Symptom("headache", 10));
-        patient3.addSymptom(new Symptom("body ache", 2));
-        patient3.isConfirmedCase();
-
-        if (patient1.getStatus().equals("Infected")) {
-            hospital1.addPatient(patient1);
+        System.out.println("Names of Patients:");
+        for (Patient patient : patients) {
+            if (patient != null) {
+                System.out.println(patient.getName());
+            }
         }
 
-        if (patient2.getStatus().equals("Infected")) {
-            hospital1.addPatient(patient2);
+        System.out.println("\n\nNames of Hospitals:");
+        for (Hospital hospital : hospitals) {
+            if (hospital != null) {
+                System.out.println(hospital.getName());
+            }
         }
 
-        if (patient3.getStatus().equals("Infected")) {
-            hospital1.addPatient(patient3);
+        System.out.println("\n\nNames of States:");
+        for (State state : states) {
+            if (state != null) {
+                System.out.println(state.getName());
+            }
         }
-
+        int i = 0;
+        int j = 0;
+        // main logic to put patient in hospital
+        while(i < hospitals.length)
+        {
+            //System.out.println("LAST KAAM BAAKI");
+            while(j<patients.length)
+            {
+            if(patients[j] == null)
+            {
+                break;
+            }
+            patients[j].isConfirmedCase();
+            if(patients[j].getStatus().equals("Infected") && !patients[j].getAdmitStatus())
+            {
+                if(hospitals[i].addPatient(patients[j])){
+                System.out.println("ADMIT KIYA???");
+                //hospitals[i].addPatient(patients[j]);
+                patients[j].setAdmitStatus(true);
+                j++;
+                }
+                else{
+                break;
+                }
+            }
+            }
+            i++;
+        }
         country.displayData();
+
+        // Method to read input from file and create patients and contacts
     }
+    
 }

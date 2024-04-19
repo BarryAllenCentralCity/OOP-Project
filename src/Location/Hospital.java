@@ -1,16 +1,19 @@
-class Hospital extends Region {
+package Location;
+import Subject.Patient;
+
+public class Hospital extends Region {
     private Patient[] hospitalPatients;
     private int numHospitalPatients;
 
     public Hospital(String name) {
         super(name);
-        this.hospitalPatients = new Patient[100];
+        this.hospitalPatients = new Patient[2];
         this.numHospitalPatients = 0;
     }
 
     @Override
     protected void admitToHospital(Patient patient) {
-        if (this.numHospitalPatients < this.hospitalPatients.length) {
+        if (this.numHospitalPatients < 2) {
             this.hospitalPatients[this.numHospitalPatients] = patient;
             this.numHospitalPatients++;
         }

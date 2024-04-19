@@ -1,6 +1,7 @@
+package utility;
 public class Symptom {
-    String name;
-    int severity;
+    public String name;
+    public int severity;
     Symptom(String name, int severity)
     {
         this.name = name;

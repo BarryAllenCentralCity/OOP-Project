@@ -1,17 +1,21 @@
+package Subject;
 // Class for a patient
-class Patient extends Person{
+
+import utility.Symptom;
+
+public class Patient extends Person{
     
     private TestResult viralXTestResult;
     private TestResult genomicTestResult;
     private Symptom[] symptoms;
     private int symptomCount;
     private String status;
-   
+    private boolean admitStatus;
     private boolean deceased;
     private Contact[] contacts;
     private int numContacts;
     
-    private static final int MAX_NUM_CONTACT= 10;
+    private static final int MAX_NUM_CONTACT = 10;
 
 
     public void setHighRiskContacts(){
@@ -46,14 +50,23 @@ class Patient extends Person{
         this.numContacts = 0;
         this.contacts = new Contact[MAX_NUM_CONTACT];
         
+        this.admitStatus = false;
     }
 
     public void addSymptom(Symptom symptom) {
         this.symptoms[symptomCount++] = symptom;
     }
 
-    
+    public boolean getAdmitStatus()
+    {
+        return this.admitStatus;
+    }
 
+    public void setAdmitStatus(boolean val)
+    {
+        this.admitStatus = val;
+    }
+    
     public void isConfirmedCase() {
        
 
