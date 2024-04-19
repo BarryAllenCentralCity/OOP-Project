@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+
 abstract class Region implements Display {
     private String name;
     private Region[] subRegions;
@@ -122,6 +125,8 @@ abstract class Region implements Display {
 
     @Override
     public void displayData() {
+
+
         System.out.println("Name: " + this.name);
         System.out.println("Total patients: " + this.getTotalPatients());
         System.out.println("Total infected: " + this.getTotalInfected());
@@ -131,6 +136,43 @@ abstract class Region implements Display {
         for (int i = 0; i < this.numSubRegions; i++) {
             Region subRegion = this.subRegions[i];
             subRegion.displayData();
+        }
+
+        // export data to csv
+        try {
+            FileWriter csvWriter = new FileWriter("data.csv", true);
+            csvWriter.append(this.name);
+            csvWriter.append(",");
+            csvWriter.append(Integer.toString(this.getTotalPatients()));
+            csvWriter.append(",");
+            csvWriter.append(Integer.toString(this.getTotalInfected()));
+            csvWriter.append(",");
+            csvWriter.append(Integer.toString(this.getTotalRecovered()));
+            csvWriter.append(",");
+            csvWriter.append(Integer.toString(this.getTotalDeceased()));
+            csvWriter.append(",");
+            csvWriter.append(Double.toString(this.calculateFatalityRate()));
+            csvWriter.append("\n");
+            csvWriter.flush();
+            csvWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // export to txt
+        try {
+            FileWriter txtWriter = new FileWriter("data.txt", true);
+            txtWriter.append("Name: " + this.name + "\n");
+            txtWriter.append("Total patients: " + this.getTotalPatients() + "\n");
+            txtWriter.append("Total infected: " + this.getTotalInfected() + "\n");
+            txtWriter.append("Total recovered: " + this.getTotalRecovered() + "\n");
+            txtWriter.append("Total deceased: " + this.getTotalDeceased() + "\n");
+            txtWriter.append("Fatality rate: " + this.calculateFatalityRate() + "\n");
+            txtWriter.append("\n");
+            txtWriter.flush();
+            txtWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
