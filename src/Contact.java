@@ -23,5 +23,9 @@ public class Contact extends Person {
     public void setHighRisk(boolean highRisk) {
         this.highRisk = highRisk;
     }
+
     
+
+
+
 }

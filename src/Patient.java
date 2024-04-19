@@ -6,19 +6,30 @@ class Patient {
     private Symptom[] symptoms;
     private int symptomCount;
     private String status;
-    private HighRiskContact[] highRiskContacts;
-    private int highRiskContactCount;
+    // private HighRiskContact[] highRiskContacts;
+    // private int highRiskContactCount;
     private boolean deceased;
     private Contact[] contacts;
+    private int numContacts;
     //private boolean highRiskCon;
+    private static final int MAX_NUM_CONTACT= 10;
 
 
-    public void setHighRisk(){
+    public void setHighRiskContacts(){
         if(this.getStatus().equals("Infected")){
             for(Contact c: contacts){
-                c.setHighRisk(true);
+                if(c != null)
+                    c.setHighRisk(true);
             }
         }
+    }
+
+    public void addContact(Contact contact){
+        contacts[numContacts++] = contact;
+    }
+
+    public Contact[] getContacts(){
+        return this.contacts;
     }
 
 
@@ -29,12 +40,13 @@ class Patient {
         this.genomicTestResult = new TestResult("Untested");
         this.symptoms = new Symptom[10]; // Arbitrary size of 10
         this.status = "Under Observation";
-        this.highRiskContacts = new HighRiskContact[10]; // Arbitrary size of 10
-        this.highRiskContactCount = 0;
+        // this.highRiskContacts = new HighRiskContact[10]; // Arbitrary size of 10
+        // this.highRiskContactCount = 0;
         this.deceased = false;
         this.symptomCount = 0;
         //this.highRiskCon = false;
-
+        this.numContacts = 0;
+        this.contacts = new Contact[MAX_NUM_CONTACT];
         
     }
 
@@ -42,21 +54,21 @@ class Patient {
         this.symptoms[symptomCount++] = symptom;
     }
 
-    public void addHighRiskContact(HighRiskContact contact) {
-        if (highRiskContactCount < highRiskContacts.length) {
-            highRiskContacts[highRiskContactCount] = contact;
-            highRiskContactCount++;
-        } else {
-            System.out.println("Cannot add more high-risk contacts. Array is full.");
-        }
-    }
+    // public void addHighRiskContact(HighRiskContact contact) {
+    //     if (highRiskContactCount < highRiskContacts.length) {
+    //         highRiskContacts[highRiskContactCount] = contact;
+    //         highRiskContactCount++;
+    //     } else {
+    //         System.out.println("Cannot add more high-risk contacts. Array is full.");
+    //     }
+    // }
 
     // Overloaded method to add multiple high-risk contacts at once
-    public void addHighRiskContacts(HighRiskContact... contacts) {
-        for (HighRiskContact contact : contacts) {
-            addHighRiskContact(contact);
-        }
-    }
+    // public void addHighRiskContacts(HighRiskContact... contacts) {
+    //     for (HighRiskContact contact : contacts) {
+    //         addHighRiskContact(contact);
+    //     }
+    // }
 
     // Getters and setters for the other attributes
 
@@ -80,7 +92,7 @@ class Patient {
             //admission to hospital
             
         }
-        else if(genomicTestResult != null && viralXTestResult.getResult().equals("Negative") && genomicTestResult.getResult().equals("Positive")){
+        else if(genomicTestResult != null && viralXTestResult != null && viralXTestResult.getResult().equals("Negative") && genomicTestResult.getResult().equals("Positive")){
             //conduct viralxTest
             this.updateStatus("Infected");
             
@@ -107,6 +119,8 @@ class Patient {
         }
 
         // Getters and setters for the attributes
+
+        
         
         public void conductTest(Symptom[] symptoms, char testType)
         {
@@ -139,7 +153,7 @@ class Patient {
             }
             if(testType == 'G')
             {
-                if(totalSeverity >= 5)
+                if(totalSeverity >= 8)
                 {
                     this.result = "Positive";
                 }
