@@ -1,17 +1,16 @@
 // Class for a patient
-class Patient {
-    private int patientId;
+class Patient extends Person{
+    
     private TestResult viralXTestResult;
     private TestResult genomicTestResult;
     private Symptom[] symptoms;
     private int symptomCount;
     private String status;
-    // private HighRiskContact[] highRiskContacts;
-    // private int highRiskContactCount;
+   
     private boolean deceased;
     private Contact[] contacts;
     private int numContacts;
-    //private boolean highRiskCon;
+    
     private static final int MAX_NUM_CONTACT= 10;
 
 
@@ -34,17 +33,16 @@ class Patient {
 
 
 
-    public Patient(int patientId) {
-        this.patientId = patientId;
+    public Patient(int id, String name, int age) {
+        super(id,name,age);
         this.viralXTestResult = new TestResult("Untested");
         this.genomicTestResult = new TestResult("Untested");
         this.symptoms = new Symptom[10]; // Arbitrary size of 10
         this.status = "Under Observation";
-        // this.highRiskContacts = new HighRiskContact[10]; // Arbitrary size of 10
-        // this.highRiskContactCount = 0;
+       
         this.deceased = false;
         this.symptomCount = 0;
-        //this.highRiskCon = false;
+        
         this.numContacts = 0;
         this.contacts = new Contact[MAX_NUM_CONTACT];
         
@@ -54,32 +52,10 @@ class Patient {
         this.symptoms[symptomCount++] = symptom;
     }
 
-    // public void addHighRiskContact(HighRiskContact contact) {
-    //     if (highRiskContactCount < highRiskContacts.length) {
-    //         highRiskContacts[highRiskContactCount] = contact;
-    //         highRiskContactCount++;
-    //     } else {
-    //         System.out.println("Cannot add more high-risk contacts. Array is full.");
-    //     }
-    // }
-
-    // Overloaded method to add multiple high-risk contacts at once
-    // public void addHighRiskContacts(HighRiskContact... contacts) {
-    //     for (HighRiskContact contact : contacts) {
-    //         addHighRiskContact(contact);
-    //     }
-    // }
-
-    // Getters and setters for the other attributes
+    
 
     public void isConfirmedCase() {
-        // if (viralXTestResult != null && viralXTestResult.getResult().equals("Positive")) {
-        //     return true;
-        // }
-        // if (genomicTestResult != null && genomicTestResult.getResult().equals("Positive")) {
-        //     return true;
-        // }
-        // return false;
+       
 
         // test logic
         genomicTestResult.conductTest(this.symptoms, 'G');
@@ -108,9 +84,9 @@ class Patient {
     public String getStatus() {
         return status;
     }
-    //*************************************************
+   
     public static class TestResult {
-        //private String testType;
+        
         private String result;
 
         public TestResult(String result) {
@@ -118,13 +94,13 @@ class Patient {
             this.result = result;
         }
 
-        // Getters and setters for the attributes
+        
 
         
         
         public void conductTest(Symptom[] symptoms, char testType)
         {
-            System.out.println("ANDAR AA GYA");
+            //System.out.println("ANDAR AA GYA");
             int totalSeverity = 0;
             boolean cold = false, cough = false, headache = false, chestpain = false;
             for(Symptom symptom : symptoms)
@@ -153,7 +129,7 @@ class Patient {
             }
             if(testType == 'G')
             {
-                if(totalSeverity >= 8)
+                if(totalSeverity >= 5)
                 {
                     this.result = "Positive";
                 }
@@ -179,22 +155,7 @@ class Patient {
             return this.result;
         }
     }
-    /****************************************** */
-    // Nested class for a high-risk contact
-    public static class HighRiskContact {
-        private int contactId;
-        
-        public HighRiskContact(int contactId) {
-            this.contactId = contactId;
-            //this.contactName = contactName;
-        }
-
-        // Getters and setters for the attributes
-
-        public int getContactId(){
-            return this.contactId;
-        }
-    }
+    
 
     public void updateStatus(String status){
         this.status = status;

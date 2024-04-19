@@ -2,8 +2,8 @@ public class Contact extends Person {
     private Patient patient;
     private boolean highRisk;
 
-    public Contact(int id, String name, Patient patient) {
-        super(id, name);
+    public Contact(int id, String name,int age, Patient patient) {
+        super(id, name ,age);
         this.patient = patient;
         this.highRisk = false;
     }
