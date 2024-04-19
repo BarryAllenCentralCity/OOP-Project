@@ -42,7 +42,7 @@ public class Main {
             //System.out.println("LAST KAAM BAAKI");
             while(j<patients.length)
             {
-            if(patients[j] == null)
+            if(patients[j] == null || hospitals[i] == null)
             {
                 break;
             }

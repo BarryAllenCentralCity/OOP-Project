@@ -11,12 +11,13 @@ abstract class Region implements Display {
     private int numSubRegions;
     private Patient[] patients;
     private int numPatients;
+    static final int MAX_PAT = 10;
 
     protected Region(String name) {
         this.name = name;
         this.subRegions = new Region[10];
         this.numSubRegions = 0;
-        this.patients = new Patient[2];
+        this.patients = new Patient[Hospital.MAX_PATIENTS];
         this.numPatients = 0;
     }
 

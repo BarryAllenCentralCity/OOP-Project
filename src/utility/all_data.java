@@ -13,7 +13,7 @@ public class all_data {
     private State[] states;
     private Hospital[] hospitals;
     private Country country;
-    private static final int MAXI = 10;
+    private static final int MAXI = 40;
     private int patientCount, stateCount, hospitalCount;
     public all_data()
     {
@@ -95,6 +95,7 @@ public class all_data {
             e.printStackTrace();
         }
     }
+
     public void readInputFromFile(String fileName, Country country) {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
